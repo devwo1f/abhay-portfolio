@@ -1,5 +1,5 @@
 import { ArrowDown, Mail, Linkedin, MapPin } from "lucide-react";
-import heroFigure from "@/assets/hero-figure.png";
+import heroAnimation from "@/assets/hero-animation.mp4";
 
 const Hero = () => {
   return (
@@ -93,10 +93,13 @@ const Hero = () => {
           <div className="hidden md:flex items-center justify-center animate-slide-up animate-delay-300">
             <div className="relative">
               <div className="animate-float-figure">
-                <img 
-                  src={heroFigure} 
-                  alt="Minimalist illustration of developer working" 
-                  className="w-80 lg:w-96 opacity-80"
+                <video 
+                  src={heroAnimation} 
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline
+                  className="w-80 lg:w-96 opacity-90"
                 />
               </div>
               {/* Decorative elements around figure */}
