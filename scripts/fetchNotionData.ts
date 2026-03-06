@@ -85,6 +85,7 @@ async function fetchBlogs() {
                 const readTime = getPropertyValue(props.ReadTime);
                 const category = getPropertyValue(props.Category);
                 const excerpt = getPropertyValue(props.Excerpt);
+                const cover = page.cover?.external?.url || page.cover?.file?.url || '';
 
                 // Map Notion blocks to Markdown string
                 const mdblocks = await n2m.pageToMarkdown(page.id);
@@ -98,6 +99,7 @@ async function fetchBlogs() {
                     readTime: readTime || '5 min read',
                     category: category || 'General',
                     excerpt: excerpt || '',
+                    cover: cover,
                     content: markdown.parent || '',
                 };
             })
@@ -144,6 +146,9 @@ async function fetchProjects() {
                 const slug = getPropertyValue(props.Slug);
                 const description = getPropertyValue(props.Description);
                 const tags = getPropertyValue(props.Tags) || [];
+                const link = getPropertyValue(props.Link);
+                const github = getPropertyValue(props.Github);
+                const cover = page.cover?.external?.url || page.cover?.file?.url || '';
 
                 const mdblocks = await n2m.pageToMarkdown(page.id);
                 const markdown = n2m.toMarkdownString(mdblocks);
@@ -154,6 +159,9 @@ async function fetchProjects() {
                     slug: slug || page.id,
                     description: description || '',
                     tags: tags,
+                    link: link || '',
+                    github: github || '',
+                    cover: cover,
                     content: markdown.parent || '',
                 };
             })

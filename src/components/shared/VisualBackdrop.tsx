@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export const VisualBackdrop = () => {
+export const VisualBackdrop = ({ coverImage }: { coverImage?: string }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -78,10 +78,21 @@ export const VisualBackdrop = () => {
     }, []);
 
     return (
-        <canvas
-            ref={canvasRef}
-            className="fixed inset-0 -z-10 bg-background pointer-events-none"
-            style={{ opacity: 0.8 }}
-        />
+        <>
+            {/* If a cover image exists, we render a huge background image with dark overlay */}
+            {coverImage && (
+                <div
+                    className="fixed inset-0 -z-20 w-screen h-screen bg-cover bg-center object-cover"
+                    style={{ backgroundImage: `url(${coverImage})`, transform: 'scale(1.05)' }}
+                />
+            )}
+
+            {/* The particle canvas is still rendered over top, blending with the image if present */}
+            <canvas
+                ref={canvasRef}
+                className={`fixed inset-0 -z-10 pointer-events-none ${coverImage ? 'bg-background/40 backdrop-blur-md' : 'bg-background'}`}
+                style={{ opacity: coverImage ? 1 : 0.8 }}
+            />
+        </>
     );
 };

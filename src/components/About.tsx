@@ -50,38 +50,36 @@ const About = () => {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16">
           <div
-            className={`space-y-6 transition-all duration-700 ${
-              isVisible
+            className={`space-y-6 transition-all duration-700 ${isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
-            }`}
+              }`}
           >
-            <h2 className="text-sm font-mono text-accent uppercase tracking-wider">
+            <h2 className="text-base md:text-lg font-semibold font-mono text-accent uppercase tracking-wider">
               About Me
             </h2>
             <p className="text-2xl md:text-3xl leading-relaxed">
-              A passionate Data Scientist and AI Engineer with experience in building 
+              A passionate Data Scientist and AI Engineer with experience in building
               real-time data pipelines and optimizing cloud-based solutions.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Currently pursuing my MS in Data Science at the University of Maryland, 
-              College Park. Previously worked at Accenture as an AI/ML Analyst and 
-              Data Engineer, where I engineered high-performance data systems and 
+              Currently pursuing my MS in Data Science at the University of Maryland,
+              College Park. Previously worked at Accenture as an AI/ML Analyst and
+              Data Engineer, where I engineered high-performance data systems and
               collaborated with cross-functional teams.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              My background in Computer Science from RGPV, combined with hands-on 
-              experience in machine learning, NLP, and computer vision, drives my 
+              My background in Computer Science from RGPV, combined with hands-on
+              experience in machine learning, NLP, and computer vision, drives my
               passion for creating intelligent, scalable solutions.
             </p>
           </div>
 
           <div
-            className={`space-y-8 transition-all duration-700 delay-200 ${
-              isVisible
+            className={`space-y-8 transition-all duration-700 delay-200 ${isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
-            }`}
+              }`}
           >
             <div>
               <h3 className="text-sm font-mono text-muted-foreground uppercase tracking-wider mb-4">

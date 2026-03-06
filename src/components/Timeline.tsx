@@ -85,8 +85,8 @@ const Timeline = () => {
   return (
     <section id="timeline" className="py-32 px-6 bg-card">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-sm font-mono text-accent uppercase tracking-wider mb-16 text-center">
-          My Journey
+        <h2 className="text-base md:text-lg font-semibold font-mono text-accent uppercase tracking-wider mb-16 text-center">
+          Experience & Education
         </h2>
 
         <div className="relative">
@@ -98,17 +98,15 @@ const Timeline = () => {
               key={index}
               ref={(el) => (itemRefs.current[index] = el)}
               data-index={index}
-              className={`relative flex items-start gap-8 mb-12 md:mb-16 ${
-                index % 2 === 0 ? "md:flex-row-reverse" : ""
-              }`}
+              className={`relative flex items-start gap-8 mb-12 md:mb-16 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
+                }`}
             >
               {/* Content */}
               <div
-                className={`flex-1 ml-16 md:ml-0 transition-all duration-700 ${
-                  visibleItems.has(index)
+                className={`flex-1 ml-16 md:ml-0 transition-all duration-700 ${visibleItems.has(index)
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
-                } ${index % 2 === 0 ? "md:text-right md:pr-12" : "md:pl-12"}`}
+                  } ${index % 2 === 0 ? "md:text-right md:pr-12" : "md:pl-12"}`}
               >
                 <span className="text-sm font-mono text-muted-foreground">
                   {item.date}
@@ -123,11 +121,10 @@ const Timeline = () => {
 
               {/* Icon */}
               <div
-                className={`absolute left-8 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${
-                  visibleItems.has(index)
+                className={`absolute left-8 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${visibleItems.has(index)
                     ? "bg-accent text-accent-foreground scale-100"
                     : "bg-secondary text-muted-foreground scale-75"
-                }`}
+                  }`}
               >
                 {item.type === "work" ? (
                   <Briefcase size={18} />
