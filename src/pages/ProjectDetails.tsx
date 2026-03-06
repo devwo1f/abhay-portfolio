@@ -1,6 +1,9 @@
 import { useParams, Navigate } from "react-router-dom";
 import { ExternalLink, Github } from "lucide-react";
-import { projectsData } from "@/data/projects";
+import notionProjects from '../data/notion-projects.json';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { DetailHeader } from "@/components/shared/DetailHeader";
 import { VisualBackdrop } from "@/components/shared/VisualBackdrop";
 import { RelatedItems } from "@/components/shared/RelatedItems";
@@ -9,8 +12,8 @@ import { useEffect } from "react";
 const ProjectDetails = () => {
     const { slug } = useParams<{ slug: string }>();
 
-    const project = projectsData.find((p) => p.slug === slug);
-    const otherProjects = projectsData.filter((p) => p.slug !== slug);
+    const project: any = notionProjects.find((p: any) => p.slug === slug);
+    const otherProjects = notionProjects.filter((p: any) => p.slug !== slug);
 
     // Scroll to top on mount and when slug changes
     useEffect(() => {
@@ -21,8 +24,7 @@ const ProjectDetails = () => {
         return <Navigate to="/404" replace />;
     }
 
-    // Map the projects for the RelatedItems component
-    const relatedProjects = otherProjects.map(p => ({
+    const relatedProjects = otherProjects.map((p: any) => ({
         slug: p.slug,
         title: p.title,
         description: p.description,
@@ -42,7 +44,7 @@ const ProjectDetails = () => {
                         </h1>
 
                         <div className="flex flex-wrap gap-2 mb-8">
-                            {project.tags.map((tag) => (
+                            {project.tags?.map((tag: string) => (
                                 <span
                                     key={tag}
                                     className="px-3 py-1 bg-secondary/80 backdrop-blur-sm text-secondary-foreground text-sm rounded-full font-medium"
@@ -84,18 +86,21 @@ const ProjectDetails = () => {
                         {project.description}
                     </p>
 
-                    {/* Content Section */}
-                    <div
-                        className="prose prose-invert prose-lg max-w-none 
+                    <div className="prose prose-invert prose-lg max-w-none 
                        prose-headings:text-foreground prose-headings:font-bold prose-headings:mt-10 
                        prose-a:text-accent prose-a:no-underline hover:prose-a:underline
                        prose-p:text-muted-foreground prose-p:leading-relaxed
-                       prose-li:text-muted-foreground"
-                        dangerouslySetInnerHTML={{ __html: project.content.replace(/\\n/g, '<br/>') }}
-                    />
-
-                    <RelatedItems items={relatedProjects} type="project" />
+                       prose-li:text-muted-foreground">
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            rehypePlugins={[rehypeRaw]}
+                        >
+                            {project.content}
+                        </ReactMarkdown>
+                    </div>
                 </article>
+
+                <RelatedItems items={relatedProjects} type="project" />
             </main>
         </div>
     );

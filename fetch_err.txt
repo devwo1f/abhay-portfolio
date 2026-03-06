@@ -1,0 +1,36 @@
+﻿[dotenv@17.3.1] injecting env (3) from .env -- tip: ΓÜÖ∩╕Å  write to custom object with { processEnv: myObject }
+≡ƒÜÇ Starting Notion Data Fetch...
+Fetching Blog Posts from Notion...
+node.exe : Γ¥î Error fetching blogs: TypeError: 
+notion.databases.query is not a function
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Γ¥î Er 
+   ror fetch... not a function:String) [], RemoteE  
+  xception
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    at fetchBlogs (D:\Projects\personal-portfolio\my
+-story-showcase\scripts\fetchNotionData.ts:61:49)
+    at main (D:\Projects\personal-portfolio\my-story
+-showcase\scripts\fetchNotionData.ts:151:11)
+    at <anonymous> (D:\Projects\personal-portfolio\m
+y-story-showcase\scripts\fetchNotionData.ts:156:1)
+    at ModuleJob.run 
+(node:internal/modules/esm/module_job:377:25)
+    at async onImport.tracePromise.__proto__ 
+(node:internal/modules/esm/loader:671:26)
+    at async asyncRunEntryPointWithESMLoader 
+(node:internal/modules/run_main:101:5)
+Fetching Projects from Notion...
+Γ¥î Error fetching projects: TypeError: 
+notion.databases.query is not a function
+    at fetchProjects (D:\Projects\personal-portfolio
+\my-story-showcase\scripts\fetchNotionData.ts:110:49
+)
+    at main (D:\Projects\personal-portfolio\my-story
+-showcase\scripts\fetchNotionData.ts:152:11)
+Γ£¿ Notion Data Fetch Complete!

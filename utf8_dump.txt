@@ -1,0 +1,45 @@
+﻿[dotenv@17.3.1] injecting env (3) from .env -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+≡ƒÜÇ Starting Notion Data Fetch...
+Fetching Blog Posts from Notion...
+--- BLOG PROPERTIES MAP ---
+{
+  "Slug": {
+    "id": "%3EPb%3F",
+    "type": "rich_text",
+    "rich_text": []
+  },
+  "Date": {
+    "id": "GTiM",
+    "type": "date",
+    "date": null
+  },
+  "ReadTime": {
+    "id": "PE%3E%5C",
+    "type": "rich_text",
+    "rich_text": []
+  },
+  "GitHub URL": {
+    "id": "R%3FUl",
+    "type": "url",
+    "url": null
+  },
+  "Category": {
+    "id": "Y%5BS%3B",
+    "type": "multi_select",
+    "multi_select": []
+  },
+  "Excerpt": {
+    "id": "loeM",
+    "type": "rich_text",
+    "rich_text": []
+  },
+  "Name": {
+    "id": "title",
+    "type": "title",
+    "title": []
+  }
+}
+Γ£à Saved 1 blog posts to D:\Projects\personal-portfolio\my-story-showcase\src\data\notion-blogs.json
+Fetching Projects from Notion...
+Γ£à Saved 0 projects to D:\Projects\personal-portfolio\my-story-showcase\src\data\notion-projects.json
+Γ£¿ Notion Data Fetch Complete!

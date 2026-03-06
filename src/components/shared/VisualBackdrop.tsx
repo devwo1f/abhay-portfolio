@@ -41,8 +41,8 @@ export const VisualBackdrop = () => {
 
             // Draw a subtle gradient background
             const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, 'rgba(var(--background), 0.1)');
-            gradient.addColorStop(1, 'rgba(var(--accent), 0.03)');
+            gradient.addColorStop(0, 'rgba(10, 10, 10, 0.1)'); // Dark theme approximation
+            gradient.addColorStop(1, 'rgba(10, 10, 10, 0.03)');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
