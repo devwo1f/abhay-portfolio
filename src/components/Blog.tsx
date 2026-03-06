@@ -1,36 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowUpRight, Calendar } from "lucide-react";
-
-interface BlogPost {
-  title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-}
-
-const blogPosts: BlogPost[] = [
-  {
-    title: "Building Scalable Data Pipelines in the Cloud",
-    excerpt:
-      "Exploring best practices for designing and implementing real-time data processing systems that can handle millions of events.",
-    date: "Dec 2025",
-    readTime: "5 min read",
-    category: "Data Engineering",
-  },
-  {
-    title: "Azure Certifications: A Comprehensive Guide",
-    excerpt:
-      "Tips and strategies for preparing and passing Azure Data Engineer and AI Associate certifications.",
-    date: "Oct 2025",
-    readTime: "6 min read",
-    category: "Certifications",
-  },
-];
+import { blogPosts, BlogPost } from "@/data/blogs";
 
 const Blog = () => {
   const [visiblePosts, setVisiblePosts] = useState<Set<number>>(new Set());
-  const postRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const postRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,16 +39,16 @@ const Blog = () => {
         </p>
 
         <div className="space-y-1">
-          {blogPosts.map((post, index) => (
-            <div
+          {blogPosts.map((post: BlogPost, index: number) => (
+            <a href={`/blog/${post.slug}`} 
+              to={`/blog/${post.slug}`}
               key={index}
               ref={(el) => (postRefs.current[index] = el)}
               data-index={index}
-              className={`group py-8 border-b border-border last:border-0 cursor-pointer transition-all duration-700 ${
-                visiblePosts.has(index)
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 -translate-x-8"
-              }`}
+              className={`relative z-10 block group py-8 border-b border-border last:border-0 cursor-pointer transition-all duration-700 ${visiblePosts.has(index)
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-8"
+                }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
@@ -97,14 +72,14 @@ const Blog = () => {
                         {post.excerpt}
                       </p>
                     </div>
-                    <ArrowUpRight
+                    <a href={`/blog/${post.slug}`} rrowUpRight
                       size={20}
                       className="shrink-0 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"
                     />
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

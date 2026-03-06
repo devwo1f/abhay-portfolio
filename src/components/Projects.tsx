@@ -1,31 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ExternalLink, Github } from "lucide-react";
-
-interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  link?: string;
-}
-
-const projectsData: Project[] = [
-  {
-    title: "Smart Traffic Sign Recognition for Autonomous Vehicles",
-    description:
-      "Developed a computer vision pipeline using EfficientNet to detect 50+ road signs. Applied quantization techniques and TensorRT to accelerate inference speed by 3x (60 FPS), enabling real-time processing for autonomous navigation.",
-    tags: ["Python", "Computer Vision", "EfficientNet", "TensorRT"],
-  },
-  {
-    title: "Findflix Movie Recommendation",
-    description:
-      "Architected a hybrid recommendation engine using embedding vectors and collaborative filtering; achieved an NDCG score of 0.88 (18% above baseline). Focused on production scalability, optimizing the data loading pipeline for real-time predictions",
-    tags: ["Python", "Machine Learning", "Collaborative Filtering", "Embedding Vectors"],
-  },
-];
+import { projectsData, Project } from "@/data/projects";
 
 const Projects = () => {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -59,28 +39,26 @@ const Projects = () => {
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {projectsData.map((project, index) => (
-            <div
+          {projectsData.map((project: Project, index: number) => (
+            <a href={`/project/${project.slug}`} 
+              to={`/project/${project.slug}`}
               key={index}
               ref={(el) => (cardRefs.current[index] = el)}
               data-index={index}
-              className={`group p-8 bg-card border border-border rounded-lg hover-lift transition-all duration-700 cursor-pointer ${
-                visibleCards.has(index)
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              }`}
+              className={`relative z-10 block group p-8 bg-card border border-border rounded-lg hover-lift transition-all duration-700 cursor-pointer ${visibleCards.has(index)
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
+                }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="flex items-start justify-between mb-4">
                 <h3 className="text-xl font-semibold group-hover:text-accent transition-colors">
                   {project.title}
                 </h3>
-                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ExternalLink
-                    size={18}
-                    className="text-muted-foreground hover:text-accent"
-                  />
-                </div>
+                <ExternalLink
+                  size={18}
+                  className="text-muted-foreground hover:text-accent"
+                />
               </div>
 
               <p className="text-muted-foreground text-sm leading-relaxed mb-6">
@@ -97,11 +75,11 @@ const Projects = () => {
                   </span>
                 ))}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 
