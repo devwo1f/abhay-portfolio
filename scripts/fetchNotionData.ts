@@ -11,14 +11,46 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_DIR = path.resolve(__dirname, '../src/data');
+const PUBLIC_DIR = path.resolve(__dirname, '../public');
+const IMAGES_DIR = path.join(PUBLIC_DIR, 'notion-images');
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const BLOG_DB_ID = process.env.NOTION_BLOG_DB_ID;
 const PROJECT_DB_ID = process.env.NOTION_PROJECT_DB_ID;
 
-// Ensure data directory exists
+// Ensure directories exist
 if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+if (!fs.existsSync(IMAGES_DIR)) {
+    fs.mkdirSync(IMAGES_DIR, { recursive: true });
+}
+
+async function downloadImage(url: string, filename: string): Promise<string> {
+    if (!url) return '';
+
+    try {
+        // Simple heuristic to get extension
+        let ext = url.split(/[#?]/)[0].split('.').pop()?.trim().toLowerCase() || 'jpg';
+        if (ext.length > 4 || !['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext)) {
+            ext = 'jpg';
+        }
+        const finalFilename = `${filename}.${ext}`;
+        const outputPath = path.join(IMAGES_DIR, finalFilename);
+        const publicPath = `/notion-images/${finalFilename}`;
+
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Failed to fetch image: ${response.statusText}`);
+
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        fs.writeFileSync(outputPath, buffer);
+
+        return publicPath;
+    } catch (error) {
+        console.error(`❌ Failed to download image ${filename}:`, error);
+        return url; // Fallback to original URL if download fails
+    }
 }
 
 // Initialize Notion client and Markdown converter
@@ -85,7 +117,11 @@ async function fetchBlogs() {
                 const readTime = getPropertyValue(props.ReadTime);
                 const category = getPropertyValue(props.Category);
                 const excerpt = getPropertyValue(props.Excerpt);
-                const cover = page.cover?.external?.url || page.cover?.file?.url || '';
+                let cover = page.cover?.external?.url || page.cover?.file?.url || '';
+
+                if (cover) {
+                    cover = await downloadImage(cover, `blog-${slug || page.id}`);
+                }
 
                 // Map Notion blocks to Markdown string
                 const mdblocks = await n2m.pageToMarkdown(page.id);
@@ -148,7 +184,11 @@ async function fetchProjects() {
                 const tags = getPropertyValue(props.Tags) || [];
                 const link = getPropertyValue(props.Link);
                 const github = getPropertyValue(props.Github);
-                const cover = page.cover?.external?.url || page.cover?.file?.url || '';
+                let cover = page.cover?.external?.url || page.cover?.file?.url || '';
+
+                if (cover) {
+                    cover = await downloadImage(cover, `project-${slug || page.id}`);
+                }
 
                 const mdblocks = await n2m.pageToMarkdown(page.id);
                 const markdown = n2m.toMarkdownString(mdblocks);
