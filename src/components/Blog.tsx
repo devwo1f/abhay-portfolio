@@ -98,7 +98,7 @@ const Blog = () => {
                   <div className="relative h-48 w-full mb-6 overflow-hidden rounded-xl bg-muted/30">
                     {blog.cover ? (
                       <img
-                        src={blog.cover}
+                        src={`${import.meta.env.BASE_URL}${blog.cover.replace(/^\//, '')}`}
                         alt={blog.title}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />

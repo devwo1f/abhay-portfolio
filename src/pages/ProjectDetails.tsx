@@ -9,6 +9,13 @@ import { VisualBackdrop } from "@/components/shared/VisualBackdrop";
 import { RelatedItems } from "@/components/shared/RelatedItems";
 import { useEffect } from "react";
 
+// Helper to reliably get image url taking into account base url
+const getImageUrl = (coverUrl?: string) => {
+    if (!coverUrl) return coverUrl;
+    if (coverUrl.startsWith("http")) return coverUrl;
+    return `${import.meta.env.BASE_URL}${coverUrl.replace(/^\//, '')}`;
+};
+
 const ProjectDetails = () => {
     const { slug } = useParams<{ slug: string }>();
 
@@ -33,7 +40,7 @@ const ProjectDetails = () => {
 
     return (
         <div className="relative min-h-[100dvh]">
-            <VisualBackdrop coverImage={project.cover} />
+            <VisualBackdrop coverImage={getImageUrl(project.cover)} />
             <div className="relative z-10 font-[family-name:var(--font-sf-pro)]">
                 <DetailHeader />
 

@@ -95,7 +95,7 @@ const Projects = () => {
                   <div className="relative h-64 md:h-80 w-full mb-6 overflow-hidden rounded-xl bg-muted/30">
                     {project.cover ? (
                       <img
-                        src={project.cover}
+                        src={`${import.meta.env.BASE_URL}${project.cover.replace(/^\//, '')}`}
                         alt={project.title}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />

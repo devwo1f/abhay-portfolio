@@ -9,6 +9,12 @@ import { VisualBackdrop } from "@/components/shared/VisualBackdrop";
 import { RelatedItems } from "@/components/shared/RelatedItems";
 import { useEffect } from "react";
 
+const getImageUrl = (coverUrl?: string) => {
+    if (!coverUrl) return coverUrl;
+    if (coverUrl.startsWith("http")) return coverUrl;
+    return `${import.meta.env.BASE_URL}${coverUrl.replace(/^\//, '')}`;
+};
+
 const BlogPost = () => {
     const { slug } = useParams<{ slug: string }>();
 
@@ -34,7 +40,7 @@ const BlogPost = () => {
 
     return (
         <div className="relative min-h-[100dvh]">
-            <VisualBackdrop coverImage={post.cover} />
+            <VisualBackdrop coverImage={getImageUrl(post.cover)} />
             <div className="relative z-10 font-[family-name:var(--font-sf-pro)]">
                 <DetailHeader />
 
